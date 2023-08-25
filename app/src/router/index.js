@@ -1,12 +1,17 @@
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuth } from '@/store/auth';
+import { auth, redirectIfAuthenticated } from '@/router/guard';
+
 
 const routes = [
   {
     path: '/login',
     component: () => import('@/layouts/Login.vue'),
+    beforeEnter: redirectIfAuthenticated,
+
     children: [{
       path: '',
+      name: 'login',
       component: () => import('@/views/Login.vue')
     }],
   },
@@ -14,10 +19,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/Dashboard.vue'),
-    beforeEnter: (to, from, next) => {
-      console.log('aqui');
-      next()
-    },
+    beforeEnter: auth,
     children: [
       {
         path: '',
