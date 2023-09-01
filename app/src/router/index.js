@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuth } from '@/store/auth';
 import { auth, redirectIfAuthenticated } from '@/router/guard';
+import { useAuth } from '@/store/auth';
 
 
 const routes = [
@@ -36,6 +36,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuth()
+  authStore.sanctum();
+  next()
 })
 
 export default router
