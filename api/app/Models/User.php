@@ -17,11 +17,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     /*ESSE MÉTODO PROTEGE CAMPO POR CAMPO NA HORA DE ARMAZENAR NO BD
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
-    ];
+    ];*/
+
+    //ESSE MÉTODO PROTEGE APENAS O ID NA HORA DE ARMAZENAR NO BD
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
